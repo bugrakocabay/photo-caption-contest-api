@@ -4,6 +4,7 @@ require("dotenv").config();
 
 // Importing
 const photoRouter = require("./routes/photos");
+const captionRouter = require("./routes/captions");
 const sequelize = require("./util/db");
 
 const app = express();
@@ -13,6 +14,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Route Handlers
+app.use("/captions", captionRouter);
 app.use("/photos", photoRouter);
 
 // Server
