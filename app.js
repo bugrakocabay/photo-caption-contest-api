@@ -1,7 +1,8 @@
 // Dependincies
 const express = require("express");
-require("dotenv").config();
 const morgan = require("morgan");
+require("dotenv").config();
+require("./auth/passport");
 
 // Importing
 const photoRouter = require("./routes/photos");

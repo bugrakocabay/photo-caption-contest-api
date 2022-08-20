@@ -27,7 +27,7 @@ exports.register = async (req, res) => {
 exports.login = async (req, res) => {
   const { username, password } = req.body;
 
-  const user = User.findOne({ where: { username } }).catch((err) => {
+  const user = await User.findOne({ where: { username } }).catch((err) => {
     console.log(err);
   });
 
@@ -35,6 +35,15 @@ exports.login = async (req, res) => {
     const validPassword = await bcrypt.compare(password, user.password);
 
     if (validPassword) {
+      const jwtToken = jwt.sign(
+        { id: user.id, username: user.username },
+        process.env.SECRET
+      );
+      res.status(200).json({ msg: "auth successful", token: jwtToken });
+    } else {
+      return res.status(500).json({ msg: "auth failed" });
     }
+  } else {
+    return res.status(500).json({ msg: "user does not exist" });
   }
 };
