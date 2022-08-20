@@ -1,10 +1,13 @@
 // Dependincies
 const express = require("express");
 require("dotenv").config();
+const morgan = require("morgan");
 
 // Importing
 const photoRouter = require("./routes/photos");
 const captionRouter = require("./routes/captions");
+const userRouter = require("./routes/user");
+
 const sequelize = require("./util/db");
 
 const app = express();
@@ -12,10 +15,12 @@ const app = express();
 // Middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(morgan("dev"));
 
 // Route Handlers
 app.use("/captions", captionRouter);
 app.use("/photos", photoRouter);
+app.use("/users", userRouter);
 
 // Server
 (async () => {
