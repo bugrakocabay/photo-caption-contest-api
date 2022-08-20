@@ -9,7 +9,7 @@ router
   .post(passport.authenticate("jwt", { session: false }), photos.createPhoto);
 router
   .route("/:id")
-  .get(photos.getSinglePhoto)
+  .get(photos.getPhoto)
   .delete(passport.authenticate("jwt", { session: false }), photos.deletePhoto)
   .put(passport.authenticate("jwt", { session: false }), photos.updatePhoto);
 

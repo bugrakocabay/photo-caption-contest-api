@@ -1,4 +1,7 @@
 const Photos = require("../models/photos");
+const CacheService = require("../util/cache-service");
+const cache = new CacheService(3600);
+const CACHE_KEY = "photo";
 
 exports.getPhotos = async (req, res) => {
   try {
@@ -9,13 +12,18 @@ exports.getPhotos = async (req, res) => {
   }
 };
 
-exports.getSinglePhoto = async (req, res) => {
-  try {
-    const photo = await Photos.findByPk(req.params.id);
-    return res.status(200).json(photo);
-  } catch (error) {
-    res.status(500).json(error);
-  }
+exports.getPhoto = (req, res) => {
+  return cache
+    .get(`${CACHE_KEY}_${req.params.id}`, () => Photos.findByPk(req.params.id))
+    .then((photo) => {
+      if (!photo) {
+        return res.status(404).json({ msg: "photo not found" });
+      }
+      return res.status(200).json(photo);
+    })
+    .catch((error) => {
+      res.status(400).json(error);
+    });
 };
 
 exports.createPhoto = async (req, res) => {

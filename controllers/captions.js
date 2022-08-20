@@ -1,12 +1,22 @@
 const Captions = require("../models/captions");
+const CacheService = require("../util/cache-service");
+const cache = new CacheService(3600);
+const CACHE_KEY = "caption";
 
-exports.getCaption = async (req, res) => {
-  try {
-    const caption = await Captions.findByPk(req.params.id);
-    return res.status(200).json(caption);
-  } catch (error) {
-    res.status(500).json(error);
-  }
+exports.getCaption = (req, res) => {
+  return cache
+    .get(`${CACHE_KEY}_${req.params.id}`, () =>
+      Captions.findByPk(req.params.id)
+    )
+    .then((caption) => {
+      if (!caption) {
+        res.status(404).json({ msg: "cant find caption" });
+      }
+      return res.status(200).json(caption);
+    })
+    .catch((error) => {
+      res.status(400).json(error);
+    });
 };
 
 exports.createCaption = async (req, res) => {
