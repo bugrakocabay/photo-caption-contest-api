@@ -10,7 +10,7 @@ router
 router
   .route("/:id")
   .get(photos.getSinglePhoto)
-  .delete(photos.deletePhoto)
-  .put(photos.updatePhoto);
+  .delete(passport.authenticate("jwt", { session: false }), photos.deletePhoto)
+  .put(passport.authenticate("jwt", { session: false }), photos.updatePhoto);
 
 module.exports = router;
