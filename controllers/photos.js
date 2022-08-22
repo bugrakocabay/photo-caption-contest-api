@@ -22,7 +22,7 @@ exports.getPhoto = (req, res) => {
       return res.status(200).json(photo);
     })
     .catch((error) => {
-      res.status(400).json(error);
+      res.status(500).json(error);
     });
 };
 
@@ -46,6 +46,9 @@ exports.createPhoto = async (req, res) => {
 exports.deletePhoto = async (req, res) => {
   try {
     const photo = await Photos.destroy({ where: { id: req.params.id } });
+    if (!photo) {
+      return res.status(404).json({ msg: "photo not found" });
+    }
     return res.status(200).json({ msg: "success" });
   } catch (error) {
     return res.status(500).json(error);
@@ -62,7 +65,7 @@ exports.updatePhoto = async (req, res) => {
       const photo = await Photos.update(photoModel, {
         where: { id: req.params.id },
       });
-      return res.status(200).json({ msg: "success" });
+      return res.status(200).json(photo);
     } catch (error) {
       return res.status(500).json(error);
     }
