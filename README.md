@@ -17,8 +17,6 @@ This API allow users to receive, create, update and delete photos as well as cap
   
 ## API Usage
 
-#### Tüm öğeleri getir
-
 To be able to run this API on your machine, you need to have Node.js, NPM and Postgresql installed. First clone this repo by running the command below on your terminal.
 
 ```bash
@@ -46,33 +44,6 @@ Then start server
 ```
 
 
-## API Usage
-
-#### Tüm öğeleri getir
-
-To be able to run this API on your machine, you need to have Node.js, NPM and Postgresql installed. First clone this repo by running the command below on your terminal.
-
-```bash
-  git clone https://github.com/bugrakocabay/photo-caption-contest-api.git
-```
-
-Proje dizinine gidin
-
-```bash
-  cd my-project
-```
-
-Gerekli paketleri yükleyin
-
-```bash
-  npm install
-```
-
-Sunucuyu çalıştırın
-
-```bash
-  npm run start
-```
 ## Outcomes
 
 This project is where I used some of the technologies and tools that I mentioned above for the first time. For example, Sequelize helped me realize how ORM lets developer manage complex stuff with very little effort, and put that time saved into more creative things.
