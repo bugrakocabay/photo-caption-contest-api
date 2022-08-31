@@ -55,7 +55,7 @@ Next is, how caching works and provides such fast data transfer between server a
 #### Register
 
 ```http
-  GET /register
+  POST /register
 ```
 
 | Body | Type     | Description                       |
@@ -64,7 +64,7 @@ Next is, how caching works and provides such fast data transfer between server a
 | `password`      | `string` | **Required**  |
 
 ```http
-  GET /login
+  POST /login
 ```
 
 | Body | Type     | Description                       |
@@ -89,7 +89,7 @@ Next is, how caching works and provides such fast data transfer between server a
 | `url`      | `string` | **Required**  |
 
 ```http
-  GET/DELETE /photos/{id}
+  GET / DELETE /photos/{id}
 ```
 
 | Parameter | Type     | Description                       |
@@ -115,7 +115,7 @@ Next is, how caching works and provides such fast data transfer between server a
 | `comment`      | `string` | **Required**  |
 
 ```http
-  GET/DELETE /captions/{id}
+  GET / DELETE /captions/{id}
 ```
 
 | Parameter | Type     | Description                       |
